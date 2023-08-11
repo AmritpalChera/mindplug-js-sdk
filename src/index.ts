@@ -59,7 +59,7 @@ export default class Mindplug {
 
   async storePDF(data: StoreFileProps) {
     const form = new FormData();
-    if (data.file.size > 20000000) throw "File limit is 20MB"
+    if (data.file.size > 50000000) throw "File limit is 50MB"
     form.append('file', data.file);
     const fileParsed = await this.mindplugFile.post('https://experai.ue.r.appspot.com/parse/pdf', form).then((res: any) => res.data);
     return this.mindplug.post('/data/store/multi', {
