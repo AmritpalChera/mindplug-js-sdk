@@ -25,7 +25,7 @@ export default class Mindplug {
 
   constructor(props: ISDKProps) {
     this.mindplug = axios.create({
-      baseURL: devUrl,
+      baseURL: prodUrl,
       headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${props.mindplugKey}`
@@ -33,7 +33,7 @@ export default class Mindplug {
     });
 
     this.mindplugFile = axios.create({
-      baseURL: devUrl,
+      baseURL: prodUrl,
       headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${props.mindplugKey}`
