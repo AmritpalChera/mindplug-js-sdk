@@ -150,4 +150,8 @@ export default class Mindplug {
   async searchWeb(data: SearchWebType) {
     return this.mindplug.post('/smart/web', { search: data.search}).then((res: any) => res.data).catch((err: any) => err.response.data);
   }
+
+  async parseWebpage(url: string) {
+    return this.mindplug.post('/smart/parseWeb', { url }).then((res: any) => res.data).catch((err: any) => err.response.data);
+  }
 }
