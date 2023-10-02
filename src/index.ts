@@ -154,4 +154,8 @@ export default class Mindplug {
   async parseWebpage(url: string) {
     return this.mindplug.post('/smart/parseWeb', { url }).then((res: any) => res.data).catch((err: any) => err.response.data);
   }
+
+  async summarizeText(text: string, amountCharacters?: number) {
+    return this.mindplug.post('/smart/summarize', {text, amountCharacters}).then((res: any) => res.data).catch((err: any) => err.response.data);
+  }
 }
