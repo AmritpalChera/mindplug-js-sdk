@@ -162,4 +162,8 @@ export default class Mindplug {
   async oneLiner(text: string, instructions?: string) {
     return this.mindplug.post('/smart/oneLiner', {text, instructions}).then((res: any) => res.data).catch((err: any) => err.response.data);
   }
+
+  async labelText(text: string, amount?: number) {
+    return this.mindplug.post('/smart/label', {text, number: amount}).then((res: any) => res.data).catch((err: any) => err.response.data);
+  }
 }
