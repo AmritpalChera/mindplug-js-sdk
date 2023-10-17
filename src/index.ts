@@ -158,4 +158,8 @@ export default class Mindplug {
   async summarizeText(text: string, amountCharacters?: number) {
     return this.mindplug.post('/smart/summarize', {text, amountCharacters}).then((res: any) => res.data).catch((err: any) => err.response.data);
   }
+
+  async oneLiner(text: string, instructions?: string) {
+    return this.mindplug.post('/smart/oneLiner', {text, instructions}).then((res: any) => res.data).catch((err: any) => err.response.data);
+  }
 }
