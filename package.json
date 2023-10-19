@@ -1,6 +1,6 @@
 {
   "name": "mindplug",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Embeddings made easy with mindplug",
   "main": "build/index.js",
   "scripts": {
