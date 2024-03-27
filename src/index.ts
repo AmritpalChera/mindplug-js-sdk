@@ -14,7 +14,7 @@ export const limiterOpenai = new Bottleneck({
   minTime: 50
 });
 
-const devUrl = 'http://localhost:3001/api';
+const devUrl = 'http://localhost:9001/api';
 const prodUrl = 'https://connect.mindplug.io/api';
 
 
@@ -25,7 +25,7 @@ export default class Mindplug {
 
   constructor(props: ISDKProps) {
     this.mindplug = axios.create({
-      baseURL: prodUrl,
+      baseURL: props.isDev? devUrl: prodUrl,
       headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${props.mindplugKey}`
@@ -33,7 +33,7 @@ export default class Mindplug {
     });
 
     this.mindplugFile = axios.create({
-      baseURL: prodUrl,
+      baseURL: props.isDev? devUrl: prodUrl,
       headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${props.mindplugKey}`
@@ -57,11 +57,20 @@ export default class Mindplug {
     }).then((res: any) => res.data).catch((err: any) => err.response.data);
   }
 
+
+  async parsePDF(file: File) {
+    const form = new FormData();
+    if (file.size > 50000000) throw "File limit is 50MB"
+    form.append('file', file);
+    const fileParsed = await this.mindplugFile.post('https://experai.ue.r.appspot.com/parse/pdf', form).then((res: any) => res.data);
+    return fileParsed;
+  }
+
   async storePDF(data: StoreFileProps) {
     const form = new FormData();
     if (data.file.size > 50000000) throw "File limit is 50MB"
     form.append('file', data.file);
-    const fileParsed = await this.mindplugFile.post('https://experai.ue.r.appspot.com/parse/pdf', form).then((res: any) => res.data);
+    const fileParsed = await this.parsePDF(data.file);
     return this.mindplug.post('/data/store/multi', {
       data: fileParsed?.data,
       collection: data.collection,

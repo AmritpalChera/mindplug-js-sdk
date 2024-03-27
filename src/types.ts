@@ -2,6 +2,7 @@
 export interface ISDKProps {
   mindplugKey: string;
   openaiKey?: string;
+  isDev?: boolean;
 }
 
 type JSONAny = {
